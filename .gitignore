@@ -1,3 +1,11 @@
+#  dataset y los pesos del modelo
+checkpoints_socratic/
+*.gguf
+*.bin
+*.safetensors
+dataset_socratico.jsonl
+socratic-math/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
