@@ -1,0 +1,34 @@
+# ══════════════════════════════════════════════════════════════════
+# requirements.txt — QLoRA Fine-Tuning (Qwen2.5-Math-7B-Instruct)
+# Hardware: RTX 5050 Laptop GPU (Blackwell sm_120, 8 GB VRAM)
+# ══════════════════════════════════════════════════════════════════
+#
+# ⚠️  IMPORTANTE: NO instalar directamente con "pip install -r requirements.txt"
+#     Usar el script install.bat (Windows) o install.sh (Linux) que se incluye,
+#     porque PyTorch debe instalarse PRIMERO desde el canal nightly con soporte
+#     para arquitectura Blackwell (sm_120), NO desde PyPI estándar.
+#
+# ══════════════════════════════════════════════════════════════════
+# PASO 1 — PyTorch (instalar ANTES que todo lo demás)
+# ══════════════════════════════════════════════════════════════════
+# La RTX 5050 usa arquitectura Blackwell (compute capability sm_120).
+# Las versiones estables de PyTorch (hasta 2.9.x) NO soportan sm_120.
+# Se requiere PyTorch nightly con CUDA 12.8+.
+#
+# Instalar manualmente con:
+#   pip install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/cu128
+#
+# ══════════════════════════════════════════════════════════════════
+# PASO 2 — Librerías de fine-tuning (instalar DESPUÉS de PyTorch)
+# ══════════════════════════════════════════════════════════════════
+transformers>=4.51.0
+peft>=0.14.0
+accelerate>=1.5.0
+trl>=0.15.0
+datasets>=3.3.0
+bitsandbytes>=0.45.3
+safetensors>=0.5.0
+huggingface-hub>=0.29.0
+sentencepiece>=0.2.0
+protobuf<4
+scipy>=1.13.0

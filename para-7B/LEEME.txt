@@ -1,0 +1,75 @@
+# ══════════════════════════════════════════════════════════════
+# LEEME.txt — Notas de compatibilidad RTX 5050 Blackwell
+# ══════════════════════════════════════════════════════════════
+
+PROBLEMA CRÍTICO: TU RTX 5050 USA ARQUITECTURA BLACKWELL (sm_120)
+══════════════════════════════════════════════════════════════════
+
+Tu NVIDIA GeForce RTX 5050 Laptop GPU pertenece a la familia Blackwell
+(chip GB207), con compute capability sm_120.
+
+A fecha de marzo 2026, las versiones ESTABLES de PyTorch (hasta 2.9.x)
+NO incluyen soporte para sm_120. Si instalas PyTorch con:
+
+    pip install torch              ← ESTO NO FUNCIONARÁ CON TU GPU
+
+Obtendrás el error:
+    "NVIDIA GeForce RTX 5050 with CUDA capability sm_120 is not
+     compatible with the current PyTorch installation."
+
+
+SOLUCIÓN: INSTALAR PYTORCH NIGHTLY
+══════════════════════════════════════════════════════════════════
+
+Debes instalar PyTorch desde el canal nightly con CUDA 12.8:
+
+    pip install --pre torch torchvision torchaudio \
+        --index-url https://download.pytorch.org/whl/nightly/cu128
+
+O simplemente ejecutar el script de instalación incluido:
+    - Windows: install.bat
+    - Linux:   ./install.sh
+
+
+ORDEN DE INSTALACIÓN (IMPORTANTE)
+══════════════════════════════════════════════════════════════════
+
+1. Crear entorno virtual:     python -m venv venv
+2. Activar entorno:           venv\Scripts\activate  (Win)
+                              source venv/bin/activate (Linux)
+3. Instalar PyTorch nightly:  (comando de arriba)
+4. Instalar dependencias:     pip install -r requirements.txt
+5. Verificar:                 python -c "import torch; print(torch.cuda.is_available())"
+6. Entrenar:                  python train_qlora_7b.py
+
+
+VERIFICACIÓN RÁPIDA
+══════════════════════════════════════════════════════════════════
+
+Ejecuta esto para confirmar que todo funciona:
+
+    python -c "
+    import torch
+    print(f'CUDA disponible: {torch.cuda.is_available()}')
+    print(f'GPU: {torch.cuda.get_device_name(0)}')
+    print(f'Compute capability: {torch.cuda.get_device_capability(0)}')
+    import bitsandbytes
+    print(f'bitsandbytes: {bitsandbytes.__version__}')
+    print('Todo OK!')
+    "
+
+Deberías ver:
+    CUDA disponible: True
+    GPU: NVIDIA GeForce RTX 5050 Laptop GPU
+    Compute capability: (12, 0)
+    bitsandbytes: 0.4x.x
+    Todo OK!
+
+
+DRIVERS NVIDIA
+══════════════════════════════════════════════════════════════════
+
+Asegúrate de tener los drivers más recientes:
+    https://www.nvidia.com/Download/index.aspx
+
+Para Blackwell se recomienda driver versión 560+ o superior.
