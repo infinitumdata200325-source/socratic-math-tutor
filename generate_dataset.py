@@ -15,7 +15,7 @@ client = OpenAI(
 )
 
 MODEL_ID = "deepseek/deepseek-r1-0528-qwen3-8b"
-N_EJEMPLOS = 800
+N_EJEMPLOS = 900
 OUTPUT_FILE = "dataset_socratico.jsonl"
 
 TEMAS = {
